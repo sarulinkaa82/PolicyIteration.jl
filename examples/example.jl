@@ -3,15 +3,16 @@ using PolicyIteration
 using POMDPs
 using POMDPTools
 using POMDPModels
+using DiscreteValueIteration
 
 
 reward_grid = Dict{GWPos, Float64}();
 reward_grid[GWPos(1, 1)] = 1
-reward_grid[GWPos(8, 1)] = -1
-reward_grid[GWPos(5, 4)] = -1
+# reward_grid[GWPos(8, 1)] = -1
+# reward_grid[GWPos(5, 4)] = -1
 
 mdp = SimpleGridWorld(
-    size = (8,8),
+    size = (3,3),
     rewards = reward_grid
     )
 

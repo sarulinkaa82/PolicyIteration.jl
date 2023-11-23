@@ -40,7 +40,7 @@ function PolicyIterationPolicy(mdp::Union{MDP,POMDP},
 end
 
 # constructor for default Q-matrix
-function PolicyIterationPolicy(mdp::Union{MDP,POMDP}, q::AbstractMatrix{F}) where {F}
+function PolicyIterationPolicy(mdp::Union{MDP,POMDP}, q::AbstractMatrix)
     
     (ns, na) = size(q)
     p = zeros(Int64, ns)
@@ -60,20 +60,20 @@ function locals(p::PolicyIterationPolicy)
     return (p.qmat,p.util,p.policy,p.action_map)
 end
 
-function action(policy::PolicyIterationPolicy, s::S) where S
+function POMDPs.action(policy::PolicyIterationPolicy, s)
     sidx = stateindex(policy.mdp, s)
     aidx = policy.policy[sidx]
     return policy.action_map[aidx]
 end
 
-function value(policy::PolicyIterationPolicy, s::S) where S
+function POMDPs.value(policy::PolicyIterationPolicy, s)
     sidx = stateindex(policy.mdp, s)
     policy.util[sidx]
 end
 
 value(policy::PolicyIterationPolicy, s, a) = actionvalues(policy, s)[actionindex(policy.mdp, a)]
 
-function POMDPTools.Policies.actionvalues(policy::PolicyIterationPolicy, s::S) where S
+function POMDPTools.Policies.actionvalues(policy::PolicyIterationPolicy, s)
     if !policy.include_Q
         error("Policy does not contain the Q matrix. Use the include_Q=true keyword argument in the solver.")
     else

@@ -66,9 +66,9 @@ function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
     end
 
     if solver.include_Q
-        return ValueIterationPolicy(mdp, qmat, value_matrix, policy_matrix)
+        return PolicyIterationPolicy(mdp, qmat, value_matrix, policy_matrix)
     else
-        return ValueIterationPolicy(mdp, utility=value_matrix, policy=policy_matrix, include_Q=false)
+        return PolicyIterationPolicy(mdp, utility=value_matrix, policy=policy_matrix, include_Q=false)
     end
 
 
