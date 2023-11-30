@@ -19,11 +19,14 @@ end
 
 function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
 
-    max_iterations = solver.max_iterations
     belres = solver.belres
-    discount_factor = discount(mdp)
+    # discount_factor = discount(mdp)
+    discount_factor = 1.0
+    states_ = states(mdp)
+    println(states_)
     ns = length(states(mdp))
     na = length(actions(mdp))
+
 
     # initializing the value_matrix, Q-matrix and policy
     if !isempty(solver.init_util) # already initialized v_func
@@ -37,6 +40,7 @@ function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
         qmat = zeros(ns, na)
     end
 
+
     policy_matrix = ones(Int64,ns)
     
     
@@ -45,25 +49,27 @@ function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
     iters = 0
     while !converged
         iters += 1
+        println()
+        println("iteration: ", iters)
+        println()
+
         # POLICY evaluation
         value_matrix = policy_evaluation(mdp, value_matrix, discount_factor, belres)
 
+        println("value_matrix")
+        println(value_matrix)
+
         
         # POLICY IMPROVEMENT
-        # policy_improvement_res = policy_improvement(mdp, value_matrix, policy_matrix, discount_factor, solver.include_Q, qmat)
         if !solver.include_Q
             policy_matrix, converged = policy_improvement(mdp, value_matrix, policy_matrix, discount_factor)
         else
             policy_matrix, qmat, converged = policy_improvement(mdp, value_matrix, policy_matrix, discount_factor, solver.include_Q, qmat)
         end
-
-        # if !solver.include_Q
-        #     policy_matrix, converged = policy_improvement_res
-        # else
-        #     policy_matrix, qmat, converged = policy_improvement_res
-        # end
         
     end
+
+    println("iterations: ", iters)
 
     if solver.include_Q
         return PolicyIterationPolicy(mdp, qmat, value_matrix, policy_matrix)
@@ -80,15 +86,22 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector,discount_factor::Float
     delta = 0
 
     while delta < belres
+        old_value_matrix = value_matrix
         for state in state_vec # iteration across the value function
             state_i = stateindex(mdp, state)
             action_vec = actions(mdp, state)
+            println("################")
+            println(state)
+            println(action_vec)
+            println()
+
 
             old_v = value_matrix[state_i]
-            max_v = -Inf
+            new_v = 0
 
             for action in action_vec # compute value for each action
-                new_v = 0
+                
+                # print(action)
                 probability_distr = transition(mdp, state, action) # transition distribution over neighbors
 
                 # V(s) = sum(T(s'|s,a) [r + V(s')]) # sum across all possible states you can end up in
@@ -99,18 +112,21 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector,discount_factor::Float
 
                     r = reward(mdp, state, action, next_state)
                     next_state_i = stateindex(mdp, next_state)
-                    new_v += prob * (r + discount_factor * value_matrix[next_state_i])
+                    new_v += prob * (r + discount_factor * old_value_matrix[next_state_i])
                 end
 
-                if new_v > max_v # find the action with the highest value
-                    max_v = new_v
-                end
+                # if new_v > max_v # find the action with the highest value
+                #     max_v = new_v
+                # end
+
+                print(state, " ", action, ": ", new_v, "   ")
 
                 
             end
+            println()
             # set new value into the matrix and change delta
-            value_matrix[state_i] = max_v
-            delta = max(delta, abs(old_v - max_v))
+            value_matrix[state_i] = new_v
+            delta = max(delta, abs(old_v - new_v))
 
         end # iter across val matrix
     end # residual, policy evaluation
@@ -153,15 +169,19 @@ function policy_improvement(mdp::MDP, value_matrix::Vector, policy_matrix::Vecto
                 new_policy = action_i
             end
 
+        end # for actions
+
+        # @assert !isnothing(new_policy) "Error, policy must not be null!"
+        if isnothing(new_policy)
+            new_policy = 0
         end
 
-        @assert !isnothing(new_policy) "Error, policy must not be null!"
         policy_matrix[state_i] = new_policy
 
         if old_policy != policy_matrix[state_i]
             converged = false
         end
-    end
+    end # for states
 
     return policy_matrix, converged
     
@@ -212,7 +232,11 @@ function policy_improvement(mdp::MDP, value_matrix::Vector, policy_matrix::Vecto
 
         end
 
-        @assert !isnothing(new_policy) "Error, policy must not be null!"
+        # @assert !isnothing(new_policy) "Error, policy must not be null!"
+        if isnothing(new_policy)
+            # println(actions(mdp)[1])
+            new_policy = 1
+        end
         policy_matrix[state_i] = new_policy
 
         if old_policy != policy_matrix[state_i]
