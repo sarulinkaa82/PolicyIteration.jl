@@ -11,7 +11,7 @@ mauskol = MausamKolobov()
 disc = discount(mauskol)
 
 
-sizee = 3
+sizee = 7
 reward_grid = Dict{GWPos, Float64}();
 reward_grid[GWPos(1, 1)] = 1
 reward_grid[GWPos(sizee, 1)] = -1
@@ -23,10 +23,10 @@ mdp = SimpleGridWorld(
     )
 
 PIsolver = PolicyIterationSolver(include_Q = true)
-PIpolicy = PolicyIteration.solve(PIsolver, mdp)
+PIpolicy = PolicyIteration.solve(PIsolver, mauskol)
 
 VIsolver = ValueIterationSolver(include_Q = true)
-VIpolicy = DiscreteValueIteration.solve(VIsolver, mdp)
+VIpolicy = DiscreteValueIteration.solve(VIsolver, mauskol)
 
 VIpolicy.qmat
 PIpolicy.qmat

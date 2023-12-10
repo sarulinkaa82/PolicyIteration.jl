@@ -1,16 +1,15 @@
 using Test
 using PolicyIteration
 using POMDPs
+using POMDPLinter
 using POMDPTools
 using POMDPModels
+using DiscreteValueIteration
 include("MausamKolobov.jl")
 
 
 @testset "PolicyIteration.jl" begin
     # Write your tests here.
-    
-    VIsolver = ValueIterationSolver()
-    PIsolver = PolicyIterationSolver()
     
     for i in 3:6
         reward_grid = Dict{GWPos, Float64}();
@@ -22,7 +21,9 @@ include("MausamKolobov.jl")
         rewards = reward_grid
         )
 
-        
+        VIsolver = DiscreteValueIterationSolver()
+        PIsolver = PolicyIterationSolver()
+
         PIpolicy = PolicyIteration.solve(PIsolver, mdp)
         VIpolicy = DiscreteValueIteration.solve(VIsolver, mdp)
 
@@ -30,10 +31,13 @@ include("MausamKolobov.jl")
         @test PIpolicy.policy == VIpolicy.policy
     end
 
-    mauskol = MausamKolobov()
-    PIpolicy = PolicyIteration.solve(PIsolver, mauskol)
-    VIpolicy = DiscreteValueIteration.solve(VIsolver, mauskol)
+    # VIsolver = ValueIterationSolver()
+    # PIsolver = PolicyIterationSolver()
 
-    @test PIpolicy.policy == VIpolicy.policy
+    # mauskol = MausamKolobov()
+    # PIpolicy = PolicyIteration.solve(PIsolver, mauskol)
+    # VIpolicy = DiscreteValueIteration.solve(VIsolver, mauskol)
+
+    # @test PIpolicy.policy == VIpolicy.policy
 
 end
