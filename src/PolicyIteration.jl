@@ -15,7 +15,8 @@ export
     locals
 
 
-include("vanilla.jl")
-include("common.jl")
+include("PolicyIterationAlgorithm.jl")
+include("PolicyIterationPolicy.jl")
+
 
 end

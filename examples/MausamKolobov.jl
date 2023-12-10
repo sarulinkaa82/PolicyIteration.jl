@@ -118,12 +118,19 @@ function POMDPs.transition(mdp::MausamKolobov, s::String, a::String)
 
         elseif s == "s3"
             return Deterministic("s4")
+
+        elseif s == "s5"
+            return Deterministic("s5")
         end
     else # s == "s4" - stochastic
+        if a == "a40"
+            return Deterministic("s5")
+        else
 
-        destinations = ["s3", "s5"]
-        probabilities = [0.4, 0.6]
-        return SparseCat(destinations, probabilities)
+            destinations = ["s3", "s5"]
+            probabilities = [0.4, 0.6]
+            return SparseCat(destinations, probabilities)
+        end
     
     end
     
@@ -137,6 +144,8 @@ function POMDPs.reward(mdp::MausamKolobov, s::String, a::String)
         return -5
     elseif a == "a41"
         return -2
+    elseif s == "s5"
+        return 0
     else
         return -1 
     end

@@ -3,9 +3,14 @@ using PolicyIteration
 using POMDPs
 using POMDPTools
 using POMDPModels
+include("MausamKolobov.jl")
+
 
 @testset "PolicyIteration.jl" begin
     # Write your tests here.
+    
+    VIsolver = ValueIterationSolver()
+    PIsolver = PolicyIterationSolver()
     
     for i in 3:6
         reward_grid = Dict{GWPos, Float64}();
@@ -17,13 +22,18 @@ using POMDPModels
         rewards = reward_grid
         )
 
-        VIsolver = ValueIterationSolver()
-        PIsolver = PolicyIterationSolver()
+        
         PIpolicy = PolicyIteration.solve(PIsolver, mdp)
         VIpolicy = DiscreteValueIteration.solve(VIsolver, mdp)
+
 
         @test PIpolicy.policy == VIpolicy.policy
     end
 
+    mauskol = MausamKolobov()
+    PIpolicy = PolicyIteration.solve(PIsolver, mauskol)
+    VIpolicy = DiscreteValueIteration.solve(VIsolver, mauskol)
+
+    @test PIpolicy.policy == VIpolicy.policy
 
 end
