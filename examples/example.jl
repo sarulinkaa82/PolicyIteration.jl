@@ -1,10 +1,16 @@
 using Revise
+using ColorSchemes
 using PolicyIteration
 using POMDPs
 using POMDPTools
 using POMDPModels
 using DiscreteValueIteration
 
+# gradient = cgrad([:white, :blue])
+
+
+vec = [1, 2, -9, 7]
+minimum(vec)
 include("MausamKolobov.jl")
 
 mauskol = MausamKolobov()

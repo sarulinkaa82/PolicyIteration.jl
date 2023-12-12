@@ -1,6 +1,8 @@
 # file for rendering gridworld
 # -> code working, file not working
 
+# file for rendering gridworld
+
 using Compose
 using ColorSchemes
 import POMDPTools: render
@@ -8,7 +10,7 @@ import POMDPTools.ModelTools: mean_reward
 
 function render(mdp::SimpleGridWorld, step::Union{NamedTuple,Dict}=(;); color = s->reward(mdp, s), 
     policy::Union{Policy,Nothing} = nothing, colormin::Float64 = -10.0, colormax::Float64 = 10.0,
-    val_func = nothing
+    val_func = nothing, qmat = nothing
    )
 
     color = tofunc(mdp, color)
@@ -31,6 +33,20 @@ function render(mdp::SimpleGridWorld, step::Union{NamedTuple,Dict}=(;); color = 
             value = round(val_func[index], digits = 3)
             value_txt = compose(context(), text(0.5, 0.5, string(value), hcenter, vcenter), stroke("black"), fill("black"))
             compose!(cell, value_txt)
+        end
+
+        if qmat !== nothing
+            q_up = round(qmat[(x - 1) * ny + y, 1], digits=2)
+            q_down = round(qmat[(x - 1) * ny + y, 2], digits=2)
+            q_left = round(qmat[(x - 1) * ny + y, 3], digits=2)
+            q_right = round(qmat[(x - 1) * ny + y, 4], digits=2)
+
+            txt_down = compose(context(), text(0.5, 0.8, string(q_down), hcenter, vcenter), fontsize(6pt), stroke("black"))
+            txt_up = compose(context(), text(0.5, 0.2, string(q_up), hcenter, vcenter), fontsize(6pt), stroke("black"))
+            txt_left = compose(context(), text(0.2, 0.5, string(q_left), hcenter, vcenter), fontsize(6pt), stroke("black"))
+            txt_right = compose(context(), text(0.8, 0.5, string(q_right), hcenter, vcenter), fontsize(6pt), stroke("black"))
+
+            compose!(cell, txt_up, txt_down, txt_left, txt_right)
         end
         
         push!(cells, cell)
