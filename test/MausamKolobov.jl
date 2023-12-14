@@ -2,9 +2,7 @@ using POMDPs
 using POMDPModels, POMDPLinter
 using POMDPTools
 
-# @TODO: Implement transitions
-#        Test it
-#        create package??
+# @TODO: create package??
 
 
 Base.@kwdef struct MausamKolobov <: MDP{String, String}
@@ -91,7 +89,6 @@ end
 
 function POMDPs.transition(mdp::MausamKolobov, s::String, a::String)
     
-    # @TODO: IMPLEMENT THIS
     # if isterminal(mdp, s)
     #     return Deterministic("tt")
     # end

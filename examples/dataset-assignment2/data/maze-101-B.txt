@@ -1,0 +1,102 @@
+101 101
+#####################################################################################################
+#S    D           D         D                     D           D               D                     #
+# DDD DDD  D DDD  D  DD D DDD DDDDDD DDD DD DDDDD DD  DDDD   DD  D  DD   DDD    D D D D   D DD   DDD#
+#       D             D D     D D         D D       D         D D D         D D D       D     D     #
+#DDD DDD DD D   D DDD     D  DD   D D  DD D D DDD   D     DD  D D   DDDDD D D D  DDDD D DD    D D D #
+#     D       D D     D     D     D   D   D D     D D D D         D         D   D     D       D     #
+# DDD D D   D   D D D DDDD  D     D   D DD  D   D D D D  DD  DDD  D  DDDD   D  DD DDD  D DDD     DD #
+#   D D D   D         D         D       D     D       D   D   D   D D       D D   D     D     D     #
+# D D D      D  DDD D DDDDD  DD D       D  DDD  DDD   D   DDD D   D D  DD D DDD D   DDD DDDDDDD D D #
+#     D       D   D D     D     D D           D D D D D   D   D D   D           D   D D       D     #
+#   DDDD   DD D    DD D D  DDDD D D D DDD D D D D D DDD   D D   D D D DDD D D   DDD D DDDD DD D D   #
+#             D D   D   D   D   D   D         D D D     D       D D         D D     D     D     D D #
+#DD D DD DDDD D  D   DD  DD    DDD  D DD   DDDD    DD   D  D  DDD DDD D DDD D       D   D D DD  D DD#
+#   D             D         D     D     D   D D D         D       D     D   D D D D D   D D         #
+# DD DDDD DDDDDDD D DDDDD DD   DD D   D  DD D   D D D D D   D DDDDD D D D D D D D   D DDD DD D D DD #
+#       D     D   D D     DD    D D   D D     D   D     D   D       D     D   D D   D       D     D #
+# DDDDD DD    D D D   DDD  DDD DD DD  D DDDDD D D D DD  DDDDDDD DD  D D D DDD DDD D D D  DD DD  DDD #
+#   D               D D           D D D     D D   D   D       D D     D     D       D   D D   D D   #
+# D      DD DDDDD D   D DD D DDD  D D DDDDD DDD DDDD   DDDDD        DDD D D DDD D   D DD  DDD   D  D#
+# D   D           D D     D       D D   D             D       D               D D D   D D           #
+# DD  DD DD  D DDDD D DDD D DDD D D DDD DD DDDD D D DDD D    DD DDD D DDD     D   DDDDD   D D D DD  #
+#     D             D       D   D D   D         D D               D D     D     D D       D       D #
+#DD D D DDDD D DD  D  D  DDDD D D DDD  DDDD  DDDD D D DDD DDD DDD D D  DDDD DDDDD D D D D   DDDDD D #
+#   D   D       D D   D       D     D     D         D     D     D D       D       D D D     D       #
+#DDDDD  D DD DD   D DD  D D  DD D D D DDD D  DDDDD  D D D D DDD D D DDD D  DDDD DDD   D DDD   DDDDD #
+#       D D D   D   D   D D   D         D       D   D D   D   D   D     D       D   D           D D #
+# DDD DDD D   DDD D D D    D  D DDD   DDDDDDD D D DDD DDD DD  D DDDDDDD  D DDDD  DDDDDD    DD D D D #
+# D       D D     D D D     D D D     D       D   D D D               DDD   DD        D D       D   #
+# DDDDDDDDD DDDD  D   D DD  D D D DDDDD  D DDDDDDDD D   DDD D D D DDDDD D D D DDD DD  D D D   DDD DD#
+#                 D D   D   D D DDD     D     D       D   D   D         D D   D       D D D   D D   #
+#D  D D DDDDD D DD  D D D DDD D D D DDDDD DD  D   D   DDD D   D   D   DD D DDDD  D  DDD D D DDD DDD #
+#             D   D     D   D D D   D       D   D D D D     D D D   D  D        D D D   D D   D     #
+# DDDDDD DDDDD  D DD D D D  D D DDDDD D   D D  D  DDD D  D    DDD DDD   DDD D D D D D DD  D D D DD  #
+#     D   D                 D         D   D D       D D         D       D   D   D   D   D     D D   #
+# DDD D   D DD DD DDDD      DDDDDDD D D DD   DD D D D D DD DD   D D DDD  D D  D DDD DDD D  DD D  DD #
+# D     D   D     D       D           D D       D D D         D D     D       D             D   D   #
+# D DDD  D  D   DD  DDDDD DDD   D D D D D D  D DD D D D D D D   D  DD DD   DDDDDD  DD D  DD D D D DD#
+#   D               D     D   D D   D D       D     D D   D D D   D D   D D     D     D         D   #
+# DDD DDD D D    DDDD D DDD DD  DDD D DDD D D D D  DD DDD D D DDDDD D D D   D DD DD   D DD  D DD DD #
+#   D D     D       D D   D   D   D D D D   D D     D D D             D D D D D   D D D D         D #
+#   D   D D   DDDDD     D DDD  DD D D   DDD D DD DD D D D    DD DDDDD     D DDD D D   DDD  D D D  D #
+# D   D     D   D D D   D     D   D D D   D           D D   D         D         D         D       D #
+#  DDDDDD  DD       D      DDD  DD DD   D D DD  DD    D   D D  DD D   DDDD DD DDDD DD DD  D D   D   #
+# D     D     D D   D       D   D     D D         D D       D D         D     D   D   D       D   D #
+#  DDDD D D DDD D DDDD DD D D D D  D  D D    DDDD D DDD DDDDD D  DDD  DD  DDDDD D D D D D D D D DDD #
+#         D D D D       D D D D D       D D         D D     D D               D     D   D     D     #
+#DDDD DDDDD   D DD  DD  D D D D DDDDD D D D D D D  DD   DDDD  D   D D D  DD D D DDDDD DD      DD DD #
+#                   D     D   D D     D D     D       D       D   D   D     D       D   D   D D   D #
+# DDDDD D D DDDD  D   D D D DD  D  DD   DDDDDD D DDDDDD DD DDDDD  DDD DD DD  D  D D DDD DDDDD DDD D #
+# D     D D     D   D     D   D D D             D         D   D       D   D   D D     D D   D   D   #
+#    DDD  D   D DDDDDDD D D D D D D D DDD DDD D D D D DDD D D D DD  D  DD  D      DD  D  DD  DD DD D#
+# D     D D     D         D   D   D D   D D   D D D D D   D   D           D D     D     D           #
+# DDD D D       D D D DDD D DDD DD D  D D   DDD D D D D DDD DDD D D DDDDD   DDDD DD D D D DDDDD D DD#
+# D   D D   D D D D       D             D D D   D D   D D   D             D D D     D   D D         #
+# D D D D D D    D DD DDDDDDD DDDDD D D D D D D DDD D D D   D D DD DDDDD DD D  DDDD D  DD D D  DD D #
+#   D D D     DD    D   D     D     D D     D         D   D             D   D           D   D   D   #
+# DDD D DDDDDDDDD D DDD D D   D DDDDD D DDDDD DD  DDDDD  D  D D DDDDDDD DDD DDDD  DDDD     DD D DDD #
+# D   D D       D               D       D       D     D   D   D D         D         D         D D   #
+# D  D     DD   D  DDDDDDDD   D DDD     DD  D DD  D   DDD D DDD D  DD DDD D  DDD  D DDDDDD DDDD    D#
+#     D         D   D       D   D     D   D D       D   D D       D D D   D     D       D       D   #
+#D DD    DD  DD DDD D DD  D D D D   DDDDD D   D  D DDDD D  DDDDD  D D   D D     DDDDDDD DD D  D DDD #
+#     D   D       D D         D D   D     D   D     D               D     D D     D   D   D   D     #
+# DDD DDD DDD DD  D DDDDDDDDDDD D D D  D DDDDDD  DD   D D DD DDDD   D D D  DD DDD   D D D D D DDDDD #
+#     D         D   D       D   D D D D       D D   D D           D D   D     D D     D D   D   D   #
+#   D D DD  DDD   D  DD DDDDD DD      D   D D DD  DD  D  DD D DDD DDD  DDDDDDD  DD D  D D  DDDD D D #
+# D D D D   D   D D   D       D     D D D   D   D     D D         D     D         D D   D         D #
+#   D      DD DDD DD  DDD D DDD D D D D D D DDD D       D DD    D   DD  D   D  DD D D D  D  DDDDD D #
+#   D   D   D   D         D D   D D D   D   D D D D D D D D     D   D     D D     D   D   D D       #
+# D D D D D  DD DDD DDDDDD  D D D D DDDD    D D D D D   D    DDD DDDD  DDD  D DDD  DD   D D D  D DD #
+# D D     D D D   D         D D D D D     D   D   D     D D D           D D D         D   D D D   D #
+#DD   DDD     D DDD DDD   D D D     D  DDDD   D DDD D DDD D      DD D D D D  DDDD D DDD DDDDD D DDD #
+#     D D   D D     D   D D D D     D       D   D   D D   D   D         D D         D   D     D     #
+# D D   DD  D D D D DDD D D DDD DD  D DDD  D  DD  DD  D D D DD DD  DDDD   DDDDDDD D D DDD D D D DDDD#
+# D D   D   D     D       D   D       D   D D   D D     D D     D               D   D    D  D D     #
+#  D DD D     D D D  DDDD D D D  DD      D  D   D      DD DD  D DDDD   DD DDD DDD D D  D DD D DDD D #
+# D     D     D D         D D D D   D   D       D D   D                           D     D D D D     #
+# D DD DD DD  D D DDDDD   DDD DDD D DDD DDDDDDD D D D DD  D  DD   D DDDD DDDD D    DDDD D D D D  DDD#
+# D       D   D             D   D D   D     D     D     D D   D D     D       D     D   D D   D     #
+# D D  DD D D DDD D DD  DDD   D   DDD  DD     D DDDDDDD D D DDD  DD D D DDDDD  DD D D DDD DDDDDD  D #
+# D               D     D D   D   D   D                   D     D   D D   D       D   D             #
+# D DDDDDDDDD DDD   DDD D D D D       D DD DD DDD DD DDDD DDDD DD DDD DD   DDD DDDD DDD DDD DD  DDD #
+#   D   D   D     D     D           D D       D   D                     D   D   D         D D D D   #
+#  D  DD  D DDDDDDDDD DDD  DD D  D  D D D DDD D D DDDDDDDD D D D  D DDD DDD D D   DDD DDD D D D   DD#
+#   D D   D D         D   D   D     D D     D                 D           D   D D             D D D #
+#DD D DDD D D   D DDDDD D D DDD D DDD DDDDDD  DDD D D D DD  D D DDD   D D DDDD   DD DDD DD  D D   D #
+# D     D     D D   D     D   D D     D       D D   D       D     D   D       D   D D       D       #
+#   D   D  DD D DDD D D DDDDD D D D D D D DDD D DDD D  DDDD D D D D D     DDD   D DDD DDDD       DD #
+# D   D   D           D             D D   D     D D                   D D   D     D         D     D #
+#   DDD D DDDDDDD D D DDD   DDDD  DDD  D  D DDD D     D DDDDD D D DD DD D DDDDD D    DD D   DD DD D #
+# D     D    D            D D     D         D     D D   D               D  D  D D D D       D     D #
+#  DDD  DD  D DDD DDD D DDDDD D D D D D DDD D D   D   DD  D D DDDDD DDD D DD  D   D D DDD   D DDD D #
+#              D      D       D     D                         D   D     D D D   D   D   D D   D D   #
+# DDDDDDDDDD DD D D   DD   DDDDDDDD   D D DDDDD DD  D   D DDD D D  DD DDD D DD DDDDDDD DD   DDD DDDD#
+#           D   D   D   D             D D D D     D   D D   D   D D     D     D           D   D     #
+# D D DDDD    DD   DD    DDD DD  DDD D    D   DDD D D  DD DDDDDD  D D D  DD D   D  DD     D D D   D #
+# D D   D   D             D  D          D     D           D       D     D     D D D D D   D   D D   #
+# D D D D D D   D  DDDDDDD  DDD  DDDDDD  D    D DDD  DDDDDD DD D D    DDD   DDD D D D D   D D D   DD#
+# D   D     D D       D             D   D     D   D   D       D     D   D D D   D D     D   D       #
+# DD DD DDD D DDDD    D DDDD  DDD   D DDDDDDD  DD  DDDD D DDD D DD DDD  D D  DDD    D  DDDDD   DDDD #
+#       D           D       D     D           D         D     D         D                          E#
+#####################################################################################################

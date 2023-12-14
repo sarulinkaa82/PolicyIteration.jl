@@ -1,0 +1,26 @@
+25 25
+#########################
+#S  D       D   D       #
+# D D  D DD D DD    D D #
+#       D   D D       D #
+# D  DD D  D  DD  DDD   #
+#   D D D D         D   #
+#DDDD   D     D      DD #
+#   D D D D   D         #
+# D DDD D DDD D     D D #
+# D     D           D D #
+# DD DDDD D D DD    DDD #
+#   D       D D         #
+# D   DDDDD D D     D DD#
+#         D   D         #
+# DDDDDD  D D DD    D D #
+#       D D             #
+#           DDDDDDD DD D#
+# D     D           D   #
+# D     D D  DDDD D D   #
+#               D   D D #
+#DD       D D DD  D D D #
+#         D       D D D #
+# DD     DD DD  DDD D D #
+#             D        E#
+#########################

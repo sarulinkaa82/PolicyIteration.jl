@@ -1,0 +1,52 @@
+51 51
+###################################################
+#S    D D           D   D           D             #
+# D   D D DDDD DDD  D   D D   DDDDD   DDD   D  DD #
+# D D D D D       D   D             D D     D     #
+# D   D D DDD D D DD DD D D D DDD D D D D   DD  DD#
+#   D   D         D     D         D D D   D   D   #
+# D DDDDDDD DD DD DDD    DD D D DDDD  D     D  D  #
+#   D                 D     D D       D       D   #
+# DDD D           DDD DD DD D DDDDD D D      DD D #
+#   D D   DDDD      D       D   D D           D   #
+#   D D           D   DD DD DDD D DD  D     D D DD#
+# D       D         D           D     D       D   #
+# DDD D   D       DD DD DDD DDD    DD D     D DDDD#
+#         D       D     D       D D   D           #
+# D D     D           D D D DD DD DDDD  D DDD  DD #
+#     D     DDDDD D             D   D   D         #
+# DDD D             D DDD D DDD  DD D DDD D   DDD #
+#   D                   D   D     D D         D D #
+#D  DDD           D D D DD D  DDD D   D D D       #
+# D   D D D D     D D   D   D   D           D   D #
+#  DD D D D DDDD DD D D D   D D D D DDDD  D D   D #
+#       D D         D D   D     D         D D D   #
+# DD DDD  DDD     DDD D   D  DD  DD    DDD  D DD  #
+#         D   D     D             D D D   D D   D #
+#  D DD     D D D D  DDD  DD  DDD D D D   DDDD  D #
+# D   D     D   D D             D     D D         #
+#DD D DDDDD  DDD      D DDD DDD DDD DDD D   D D D #
+#   D             D D   D D     D       D   D   D #
+# D D DDD D  DDD  D D DDD     D    D DDDD D DDDDD #
+#       D           D     D     D D             D #
+#DDDDD  DD          D DDD D DD  D DDDDDDD  DDDD   #
+#   D                 D     D   D       D     D D #
+# DDD D            DD D DDD D DDD DDDDD D  DD D D #
+#   D       D   D     D     D         D D D     D #
+#DD D  DD D D D D D D   D DDD   D  D DD DDD  DD   #
+#   D D   D   D D   D     D     D       D         #
+# DDD   D  DD   DDDDD D DD  DD DD  D          DDD #
+#       D   D       D     D       D             D #
+#DD DDDDDD    DDD D  D DD D DDDDD  D     DD   D D #
+#     D     D   D D D         D               D D #
+# DDD D    DDD  D D D D  DD D D DDDD          D   #
+# D     D     D D D   D         D       DDD   D   #
+#   DDD DDDD    D DDDD    DDD D  DD            DDD#
+#   D     D     D   D   D       D           D   D #
+# DDDD D  D D D DDD D DDD     DDD DDD D D  D D    #
+#         D   D D D       D   D   D   D D D   D D #
+# DD  DDD D     D D DDDDD DDD D D D   D D D D D D #
+# D   D   D D D D         D         D   D D D D   #
+# D DD   DD D D D DDD D D D D D   DDD DD  D D DDD #
+#   D     D             D       D       D   D    E#
+###################################################

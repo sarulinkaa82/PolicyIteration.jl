@@ -1,0 +1,16 @@
+15 15
+###############
+#SD    D      #
+#   DD D  DDD #
+#         D D #
+#  DDDDDDDD D #
+# D   D D   D #
+#DD DDDDD DDD #
+#     D   D   #
+#D   DD DD  DD#
+#       D D   #
+#   DD DDDDDD #
+#     D     D #
+#   D DDDD  D #
+#   D     D  E#
+###############

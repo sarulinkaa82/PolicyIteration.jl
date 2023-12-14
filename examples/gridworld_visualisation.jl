@@ -1,8 +1,7 @@
 # file for rendering gridworld
 # -> code working, file not working
 
-# file for rendering gridworld
-
+using Colors
 using Compose
 using ColorSchemes
 import POMDPTools: render
@@ -15,6 +14,9 @@ function render(mdp::SimpleGridWorld, step::Union{NamedTuple,Dict}=(;); color = 
 
     color = tofunc(mdp, color)
 
+    # color_gradient = Colors.gradient(:white, :blue)
+    # cgrad([:gray, :white])
+
     nx, ny = mdp.size
     cells = []
     for x in 1:nx, y in 1:ny
@@ -25,21 +27,25 @@ function render(mdp::SimpleGridWorld, step::Union{NamedTuple,Dict}=(;); color = 
             txt = compose(context(), text(0.5, 0.5, aarrow[a], hcenter, vcenter), stroke("black"), fill("black"))
             compose!(cell, txt)
         end
+        
         clr = tocolor(color(GWPos(x,y)), colormin, colormax)
         compose!(cell, rectangle(), fill(clr), stroke("gray"))
 
         if val_func !== nothing
-            index = (x - 1) * ny + y
-            value = round(val_func[index], digits = 3)
-            value_txt = compose(context(), text(0.5, 0.5, string(value), hcenter, vcenter), stroke("black"), fill("black"))
-            compose!(cell, value_txt)
+            value = val_func[(y - 1) * nx + x]
+            # println("value: ", value)
+            # value_txt = compose(context(), text(0.5, 0.5, string(round(value, digits = 3)), hcenter, vcenter), stroke("black"), fill("black"))
+            clr = value_to_color(value, minimum(val_func), maximum(val_func))
+            compose!(cell, rectangle(), fill(clr), stroke("gray"))
+            # compose!(cell, value_txt, rectangle(), fill(clr), stroke("gray"))
+
         end
 
         if qmat !== nothing
-            q_up = round(qmat[(x - 1) * ny + y, 1], digits=2)
-            q_down = round(qmat[(x - 1) * ny + y, 2], digits=2)
-            q_left = round(qmat[(x - 1) * ny + y, 3], digits=2)
-            q_right = round(qmat[(x - 1) * ny + y, 4], digits=2)
+            q_up = round(qmat[(y - 1) * nx + x, 1], digits=2)
+            q_down = round(qmat[(y - 1) * nx + x, 2], digits=2)
+            q_left = round(qmat[(y - 1) * nx + x, 3], digits=2)
+            q_right = round(qmat[(y - 1) * nx + x, 4], digits=2)
 
             txt_down = compose(context(), text(0.5, 0.8, string(q_down), hcenter, vcenter), fontsize(6pt), stroke("black"))
             txt_up = compose(context(), text(0.5, 0.2, string(q_up), hcenter, vcenter), fontsize(6pt), stroke("black"))
@@ -87,6 +93,11 @@ tocolor(x, colormin, colormax) = x
 function tocolor(r::Float64, colormin::Float64, colormax::Float64)
     frac = (r-colormin)/(colormax-colormin)
     return get(ColorSchemes.redgreensplit, frac)
+end
+
+function value_to_color(val::Float64, colormin::Float64, colormax::Float64)
+    frac = (val-colormin)/(colormax-colormin)
+    return get(ColorSchemes.RdBu_9, frac)
 end
 
 tofunc(m::SimpleGridWorld, f) = f

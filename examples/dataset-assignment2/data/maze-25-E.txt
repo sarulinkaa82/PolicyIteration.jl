@@ -1,0 +1,26 @@
+25 25
+#########################
+#S                 DDDDD#
+#DDDDDDDDDDDDDDDDD DDDDD#
+#D         DDDDDDD DDDDD#
+#D         DDDDDDD DDDDD#
+#D         DDDDDDD DDDDD#
+#D         DDDDDDD DDDDD#
+#D         DDDDDDD DDDDD#
+#DDDDDDDDDDDDDDDDD DDDDD#
+#DDDDDDD      DDDD DDDDD#
+#DDDDDDD      DDDD DDDDD#
+#DDDDDDD      DDDD DDDDD#
+#DDDDDDD      DDDD DDDDD#
+#DDDDDDD      DDDD DDDDD#
+#DDDDDDDDDDDDDDDDD DDDDD#
+#D        DDDDDDDD DDDDD#
+#D        DDDDDDDD DDDDD#
+#D        DDD    D D    #
+#D        DDD    D D    #
+#D        DDD    D D    #
+#DDDDDDDDDDDDDDDDD D    #
+#DD                D    #
+#D  DDDDDDDDDDDDDDDDDDDD#
+#DD                    E#
+#########################
