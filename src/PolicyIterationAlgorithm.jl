@@ -19,8 +19,8 @@ end
 function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
 
     belres = solver.belres
-    # discount_factor = discount(mdp)
-    discount_factor = 1.0
+    discount_factor = discount(mdp)
+    # discount_factor = 1.0
     states_ = states(mdp)
     ns = length(states(mdp))
     na = length(actions(mdp))
@@ -54,7 +54,7 @@ function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
     converged = false
     
     iters = 0
-    while !converged || iters < 10
+    while !converged || iters < 30
         iters += 1
 
         # POLICY evaluation
@@ -66,11 +66,11 @@ function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
         # POLICY IMPROVEMENT
         policy_matrix, converged = policy_improvement(mdp, value_matrix, policy_matrix, qmat, discount = discount_factor)
         
-        println("iteration: ", iters)
+        # println("iteration: ", iters)
         
     end
 
-    # println("Policy iteration terations: ", iters)
+    println("Policy iteration terations: ", iters)
 
     if solver.include_Q
         return PolicyIterationPolicy(mdp, qmat, value_matrix, policy_matrix)
@@ -88,13 +88,14 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; disco
     
     old_value_matrix = deepcopy(value_matrix)
     
+    # delta = 0
     i = 0
-    while i < 2
+    while true
         i += 1
         delta = 0
 
         # println(value_matrix)
-        println(old_value_matrix)
+        # println(old_value_matrix)
         
         for state in state_vec # get value for each state
             state_i = stateindex(mdp, state)
@@ -139,7 +140,7 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; disco
         end # state loop
 
 
-        println("delta: ", delta)
+        # println("delta: ", delta)
 
         old_value_matrix = deepcopy(value_matrix)
         if delta < belres
@@ -147,7 +148,7 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; disco
         end
 
     end
-    println("EVALUTAION DONE at iteration: ", i)
+    # println("EVALUTAION DONE at iteration: ", i)
     
     return value_matrix
     

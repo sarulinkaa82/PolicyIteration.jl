@@ -4,16 +4,16 @@ using POMDPTools
 
 export generate_test_domain
 
-struct GWPos
+struct GWCoords
     x::Int
     y::Int
 
-    function GWPos(x::Int, y::Int)
+    function GWCoords(x::Int, y::Int)
         new(x, y)
     end
 end
 
-Base.@kwdef struct CustomDomain <: MDP{GWPos, Symbol}
+Base.@kwdef struct CustomDomain <: MDP{GWCoords, Symbol}
     size::Tuple{Int64, Int64}
     grid::Matrix
     t_prob::Float64                = 0.7
@@ -51,18 +51,18 @@ end
 # STATES
 
 function POMDPs.states(mdp::CustomDomain)
-    state_vec = Vector{GWPos}()
+    state_vec = Vector{GWCoords}()
     
     for x in 1:mdp.size[1], y in 1:mdp.size[2]
         if mdp.grid[x, y] != "#"
-            pos = GWPos(x, y)
+            pos = GWCoords(x, y)
             push!(state_vec, pos)
         end
     end    
     return state_vec
 end
 
-function POMDPs.stateindex(mdp::CustomDomain, s::GWPos)
+function POMDPs.stateindex(mdp::CustomDomain, s::GWCoords)
     all_states = POMDPs.states(mdp)
     for index in eachindex(all_states) # linear indexing
         if all_states[index] == s
@@ -94,7 +94,7 @@ end
 
 # TRANSITIONS
 
-function POMDPs.isterminal(mdp::CustomDomain, s::GWPos)
+function POMDPs.isterminal(mdp::CustomDomain, s::GWCoords)
     if mdp.grid[s.x, s.y] == "E"
         return true
     else
@@ -102,13 +102,13 @@ function POMDPs.isterminal(mdp::CustomDomain, s::GWPos)
     end
 end
 
-function POMDPs.transition(mdp::CustomDomain, s::GWPos, a::Symbol)
+function POMDPs.transition(mdp::CustomDomain, s::GWCoords, a::Symbol)
     if isterminal(mdp, s) || !in_bounds(mdp, s)
         return Deterministic(s)
     end
 
     possible_dest_nr = length(POMDPs.actions(mdp)) + 1
-    destinations = Vector{GWPos}(undef, possible_dest_nr)
+    destinations = Vector{GWCoords}(undef, possible_dest_nr)
     probabilities = zeros(possible_dest_nr)
 
 
@@ -135,7 +135,7 @@ function POMDPs.transition(mdp::CustomDomain, s::GWPos, a::Symbol)
     return SparseCat(destinations, probabilities)
 end
 
-function in_bounds(mdp::CustomDomain, s::GWPos) 
+function in_bounds(mdp::CustomDomain, s::GWCoords) 
     if 1 < s.x < mdp.size[1] && 1 < s.y < mdp.size[2]
         return mdp.grid[s.x, s.y] != "#"
     else
@@ -143,7 +143,7 @@ function in_bounds(mdp::CustomDomain, s::GWPos)
     end
 end
 
-function next_state(mdp::CustomDomain, s::GWPos, a::Symbol)
+function next_state(mdp::CustomDomain, s::GWCoords, a::Symbol)
     x = s.x
     y = s.y
     # println("here")
@@ -160,7 +160,7 @@ function next_state(mdp::CustomDomain, s::GWPos, a::Symbol)
     end
 
     # check if in boundaries
-    new_state = GWPos(x, y)
+    new_state = GWCoords(x, y)
     if !in_bounds(mdp, new_state)
         return s
     else
@@ -171,7 +171,7 @@ end
 
 # REWARDS
 
-function POMDPs.reward(mdp::CustomDomain, s::GWPos, a::Symbol)
+function POMDPs.reward(mdp::CustomDomain, s::GWCoords, a::Symbol)
     ns = next_state(mdp, s, a)
     # println(s)
     # println(ns)
@@ -185,7 +185,7 @@ function POMDPs.reward(mdp::CustomDomain, s::GWPos, a::Symbol)
     end
 end
 
-function POMDPs.reward(mdp::CustomDomain, s::GWPos, a::Symbol, sp::GWPos)
+function POMDPs.reward(mdp::CustomDomain, s::GWCoords, a::Symbol, sp::GWCoords)
     
     # println(s)
     # println(ns)

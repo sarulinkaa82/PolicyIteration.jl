@@ -35,16 +35,16 @@ PIpolicy = PolicyIteration.solve(PIsolver, mdp)
 
 # println(accuracy, " / ", length(PIpolicy.policy))
 
-# sizee = 100
-# reward_grid = Dict{GWPos, Float64}();
-# reward_grid[GWPos(1, 1)] = 1
-# reward_grid[GWPos(sizee, 1)] = -1
+sizee = 5
+reward_grid = Dict{GWPos, Float64}();
+reward_grid[GWPos(1, 1)] = 1
+reward_grid[GWPos(sizee, 1)] = -1
 # reward_grid[GWPos(5, 4)] = -1
 
-# mdp = SimpleGridWorld(
-#     size = (sizee,sizee),
-#     rewards = reward_grid
-#     )
+mdp = SimpleGridWorld(
+    size = (sizee,sizee),
+    rewards = reward_grid
+    )
 
 function create_random_grid()
     grid_size = 100;
