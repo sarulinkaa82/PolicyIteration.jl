@@ -3,6 +3,7 @@ using POMDPModels, POMDPLinter
 using POMDPTools
 
 export generate_test_domain
+export generate_random_domain
 
 struct GWCoords
     x::Int
@@ -17,15 +18,14 @@ Base.@kwdef struct CustomDomain <: MDP{GWCoords, Symbol}
     size::Tuple{Int64, Int64}
     grid::Matrix
     t_prob::Float64                = 0.7
-    discount::Float64              = 0.95
+    discount::Float64              = 0.99
     rewards::Dict{String, Float64} = Dict("step" => -1.0, "E" => 0.0, "D" => -50.0)
 end
 
-# file = open("C:/repos/jukia_solvers/PolicyIteration.jl/examples/maze-7-A1.txt", "r")
-
 # init domain like:
-# sizee, mat = generate_test_domain(filepath)
-# mdp = CustomDomain(size = sizee, grid = mat)
+# filepath = open("C:/repos/jukia_solvers/PolicyIteration.jl/examples/maze-7-A1.txt", "r")
+# domain_size, grid_matrix = generate_test_domain(filepath)
+# mdp = CustomDomain(size = domain_size, grid = grid_matrix)
 function generate_test_domain(filepath::String)
     
     df = open(filepath, "r")
@@ -47,6 +47,75 @@ function generate_test_domain(filepath::String)
 
     return size, grid
 end
+
+
+# domain_size, grid_matrix = generate_random_domain(size, type)
+# mdp = CustomDomain(size = domain_size, grid = grid_matrix)
+# TYPES:
+# gap:      tunel:      empty:
+# #######   #######     ####
+# #     #   #     #     #  #
+# ### ###   #     #     # E#
+# #    E#   ##### #     ####
+# #######   #     #
+#           # #####
+#           #     #
+#           #    E#
+#           #######
+function generate_random_domain(size::Tuple{Int64, Int64}, type::String)
+    rows, cols = size
+
+    grid = fill("def", size)
+
+    middle = ceil(rows / 2)
+    
+    for row in 1:rows 
+        # make top and bottom wall
+        if row == 1 || row == rows
+            wall = repeat("#", cols)
+            wall = split(wall, "")
+            grid[row, :] = wall
+        # sort out the middle for different types than empty
+        elseif row == middle && type == "gap"
+            for i in 1:cols
+                if i == ceil(cols/2)
+                    grid[row, i] = " "
+                else
+                    grid[row, i] = "#"
+                end
+            end
+        elseif row == middle - 1 && type == "tunnel"
+            for i in 1:cols
+                if i == cols - 1
+                    grid[row, i] = " "
+                else
+                    grid[row, i] = "#"
+                end
+            end
+        elseif row == middle + 1 && type == "tunnel"
+            for i in 1:cols
+                if i == 2
+                    grid[row, i] = " "
+                else
+                    grid[row, i] = "#"
+                end
+            end
+        # add the rest in between (#    #)
+        else
+            for col in 1:cols
+                if col == 1 || col == cols
+                    grid[row, col] = "#"
+                elseif row == rows - 1 
+                    grid[row, cols - 1] = "E"
+                else
+                    grid[row, col] = " "
+                end
+            end
+        end
+    end
+    return size, grid
+end
+
 
 # STATES
 

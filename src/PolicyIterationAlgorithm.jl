@@ -54,8 +54,9 @@ function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
     converged = false
     
     iters = 0
-    while !converged || iters < 30
+    while !converged # || iters < 30
         iters += 1
+        println(iters)
 
         # POLICY evaluation
         # value_matrix = zeros(ns)
@@ -70,7 +71,7 @@ function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
         
     end
 
-    println("Policy iteration terations: ", iters)
+    println("Policy iteration iterations: ", iters)
 
     if solver.include_Q
         return PolicyIterationPolicy(mdp, qmat, value_matrix, policy_matrix)
