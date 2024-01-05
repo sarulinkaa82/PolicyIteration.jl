@@ -19,7 +19,7 @@ Base.@kwdef struct CustomDomain <: MDP{GWCoords, Symbol}
     grid::Matrix
     t_prob::Float64                = 0.7
     discount::Float64              = 0.99
-    rewards::Dict{String, Float64} = Dict("step" => -1.0, "E" => 0.0, "D" => -50.0)
+    rewards::Dict{String, Float64} = Dict("step" => -1.0, "E" => 10.0, "D" => -50.0)
 end
 
 # init domain like:
@@ -48,10 +48,11 @@ function generate_test_domain(filepath::String)
     return size, grid
 end
 
-
+# init domain like:
 # domain_size, grid_matrix = generate_random_domain(size, type)
 # mdp = CustomDomain(size = domain_size, grid = grid_matrix)
 # TYPES:
+
 # gap:      tunel:      empty:
 # #######   #######     ####
 # #     #   #     #     #  #
@@ -145,7 +146,6 @@ function POMDPs.initialstate(mdp::CustomDomain)
     state_vec = POMDPs.states(mdp)
     init_state_prob = zeros(Int64, length(state_vec))
     init_state_prob[mdp.size[2] + 2] = 1
-    # println(POMDPs.states(mdp)[mdp.size[2] + 2])
     return init_state_prob
 end
 
@@ -215,8 +215,6 @@ end
 function next_state(mdp::CustomDomain, s::GWCoords, a::Symbol)
     x = s.x
     y = s.y
-    # println("here")
-
 
     if a == :up
         x -= 1
@@ -233,7 +231,6 @@ function next_state(mdp::CustomDomain, s::GWCoords, a::Symbol)
     if !in_bounds(mdp, new_state)
         return s
     else
-        # println("not supposed to be here")
         return new_state
     end
 end
@@ -242,8 +239,6 @@ end
 
 function POMDPs.reward(mdp::CustomDomain, s::GWCoords, a::Symbol)
     ns = next_state(mdp, s, a)
-    # println(s)
-    # println(ns)
 
     if mdp.grid[ns.x, ns.y] == "D"
         return mdp.rewards["D"]
@@ -255,10 +250,6 @@ function POMDPs.reward(mdp::CustomDomain, s::GWCoords, a::Symbol)
 end
 
 function POMDPs.reward(mdp::CustomDomain, s::GWCoords, a::Symbol, sp::GWCoords)
-    
-    # println(s)
-    # println(ns)
-
     if mdp.grid[sp.x, sp.y] == "D"
         return mdp.rewards["D"]
     elseif mdp.grid[sp.x, sp.y] == "E"

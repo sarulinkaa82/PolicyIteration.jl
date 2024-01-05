@@ -13,11 +13,6 @@ end
 
 # states
 
-function POMDPs.discount(mdp::MausamKolobov)
-    discountt = 0.95
-    return discountt
-end
-
 function POMDPs.states(mdp::MausamKolobov)
     # s5 is the goal state
     states_ = ["s0", "s1", "s2", "s3", "s4", "s5"]
@@ -151,3 +146,7 @@ end
 
 # discount
 
+function POMDPs.discount(mdp::MausamKolobov)
+    discountt = 0.95
+    return discountt
+end

@@ -56,7 +56,7 @@ function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
     iters = 0
     while !converged # || iters < 30
         iters += 1
-        println(iters)
+        # println(iters)
 
         # POLICY evaluation
         # value_matrix = zeros(ns)
@@ -88,6 +88,7 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; disco
     state_vec = ordered_states(mdp)
     
     old_value_matrix = deepcopy(value_matrix)
+    # instead of old vs new, amke a matrix of two arrays that just switch - also good for history
     
     # delta = 0
     i = 0
