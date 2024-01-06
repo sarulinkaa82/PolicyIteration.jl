@@ -95,9 +95,6 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; disco
     while true
         i += 1
         delta = 0
-
-        # println(value_matrix)
-        # println(old_value_matrix)
         
         for state in state_vec # get value for each state
             state_i = stateindex(mdp, state)
@@ -111,8 +108,6 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; disco
             probability_distr = transition(mdp, state, action)
 
             new_v = 0
-            # println("state ", state, " action ", action)
-            # println(probability_distr)
 
             # V(s) = ∑T(s,π(s),s') * (r(s,π(s),s') + γ * V_old(s'))
             # Mausam_Kolobov - page 43
@@ -126,23 +121,13 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; disco
 
                 new_v += prob * (r + discount * old_value_matrix[next_state_i])
                 
-                # if state == "s4"
-                #     println(state)
-                #     println(prob, r, old_value_matrix[next_state_i])
-                #     println(next_state, "  ", next_state_i, " ", new_v)
-                # end
 
             end # prob distribution loop
             
             value_matrix[state_i] = new_v
             delta = max(delta, abs(old_v - new_v))
-            # println("old v mat: ", old_value_matrix)
-            # println(new_v, " ", old_v)
             
         end # state loop
-
-
-        # println("delta: ", delta)
 
         old_value_matrix = deepcopy(value_matrix)
         if delta < belres

@@ -8,7 +8,7 @@ using POMDPModels
 include("../examples/testing_domains.jl")
 
 domain_size, grid_matrix = generate_test_domain("C:/repos/jukia_solvers/PolicyIteration.jl/examples/dataset-assignment2/data/maze-15-E.txt")
-domain_size, grid_matrix = generate_random_domain((15,15), "tunnel")
+domain_size, grid_matrix = generate_random_domain((19,19), "tunnel")
 
 
 mdp = CustomDomain(size = domain_size, grid = grid_matrix)
