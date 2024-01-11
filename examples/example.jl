@@ -7,10 +7,24 @@ using POMDPModels
 using DiscreteValueIteration
 using BenchmarkTools
 
-include("testing_domains.jl")
-size, grid = generate_random_domain((11,11), "tunnel")
+include("../test/MausamKolobov.jl")
 
-sizee, mat = generate_test_domain("C:/repos/jukia_solvers/PolicyIteration.jl/examples/maze-7-A1.txt")
+VIsolver = ValueIterationSolver()
+PIsolver = PolicyIterationSolver()
+
+mauskol = MausamKolobov()
+PIpolicy = PolicyIteration.solve(PIsolver, mauskol)
+VIpolicy = DiscreteValueIteration.solve(VIsolver, mauskol)
+
+switch = mod(2, 2) + 1
+
+
+
+
+include("testing_domains.jl")
+# sizee, mat = generate_random_domain((7, 7), "gap")
+
+sizee, mat = generate_test_domain("C:/repos/jukia_solvers/PolicyIteration.jl/examples/dataset-assignment2/data/maze-7-A1.txt")
 mdp = CustomDomain(size = sizee, grid = mat)
 PIsolver = PolicyIterationSolver(include_Q = true)
 PIpolicy = PolicyIteration.solve(PIsolver, mdp)

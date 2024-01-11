@@ -8,7 +8,7 @@ end
 
 # Default constructor
 function PolicyIterationSolver(;max_iterations::Int64 = 100, 
-    belres::Float64 = 1e-2,
+    belres::Float64 = 1e-3,
     verbose::Bool = false,
     include_Q::Bool = false,
     init_util::Vector{Float64}=Vector{Float64}(undef, 0))    
@@ -71,7 +71,7 @@ function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
         
     end
 
-    println("Policy iteration iterations: ", iters)
+    # println("Policy iteration iterations: ", iters)
 
     if solver.include_Q
         return PolicyIterationPolicy(mdp, qmat, value_matrix, policy_matrix)
@@ -87,19 +87,34 @@ end
 function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; discount::Float64 = 1.0, belres::Float64 = 1e-3)
     state_vec = ordered_states(mdp)
     
-    old_value_matrix = deepcopy(value_matrix)
+    # old_value_matrix = deepcopy(value_matrix)
     # instead of old vs new, amke a matrix of two arrays that just switch - also good for history
+
+    val_len = length(value_matrix)
+    value_matrices = fill(0.0, 2, val_len)
+    switch = 1
+    value_matrices[switch, :] = value_matrix
+    # println(value_matrices)
+    # value_matrix_ = fill(0.0, length(value_matrix))
     
     # delta = 0
     i = 0
     while true
         i += 1
         delta = 0
+        # println(old_value_matrix)
+        
+        # println(value_matrices)
+        # println()
+        # println(switch)
+
         
         for state in state_vec # get value for each state
+            
             state_i = stateindex(mdp, state)
             
-            old_v = value_matrix[state_i]
+            # old_v = value_matrix[state_i]
+            old_v = value_matrices[switch, state_i]
 
             action_id = policy[state_i]
             action_vec = actions(mdp)
@@ -107,7 +122,8 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; disco
 
             probability_distr = transition(mdp, state, action)
 
-            new_v = 0
+            # new_v = 0
+            new_v_ = 0
 
             # V(s) = ∑T(s,π(s),s') * (r(s,π(s),s') + γ * V_old(s'))
             # Mausam_Kolobov - page 43
@@ -119,25 +135,41 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; disco
                 r = reward(mdp, state, action, next_state)
                 next_state_i = stateindex(mdp, next_state)
 
-                new_v += prob * (r + discount * old_value_matrix[next_state_i])
-                
+                # new_v += prob * (r + discount * old_value_matrix[next_state_i])
+                # println(new_v)
 
+                # other_switch = mod(i+1, 2) + 1
+                new_v_ += prob * (r + discount * value_matrices[switch, next_state_i])
+                # println(new_v_)
+                
             end # prob distribution loop
             
-            value_matrix[state_i] = new_v
-            delta = max(delta, abs(old_v - new_v))
+            # value_matrix[state_i] = new_v
+            value_matrix[state_i] = new_v_
+
+            # value_matrices[switch, state_i] = new_v
+
+            delta = max(delta, abs(old_v - new_v_))
             
         end # state loop
 
-        old_value_matrix = deepcopy(value_matrix)
+        # old_value_matrix = deepcopy(value_matrix)
+        
+        switch = mod(i, 2) + 1
+        value_matrices[switch, :] = value_matrix
+        
+
         if delta < belres
             break
         end
 
     end
     # println("EVALUTAION DONE at iteration: ", i)
-    
-    return value_matrix
+
+    # println(value_matrix)
+    # println(value_matrices[switch, :])
+    # println()
+    return value_matrices[switch, :]
     
 end
 

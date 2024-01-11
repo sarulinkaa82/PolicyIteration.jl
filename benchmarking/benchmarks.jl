@@ -6,6 +6,10 @@ using POMDPTools
 using POMDPModels
 
 include("../examples/testing_domains.jl")
+include("../test/MausamKolobov.jl")
+
+mdp = MausamKolobov()
+
 
 domain_size, grid_matrix = generate_test_domain("C:/repos/jukia_solvers/PolicyIteration.jl/examples/dataset-assignment2/data/maze-15-E.txt")
 domain_size, grid_matrix = generate_random_domain((19,19), "tunnel")
