@@ -8,7 +8,7 @@ end
 
 # Default constructor
 function PolicyIterationSolver(;max_iterations::Int64 = 100, 
-    belres::Float64 = 1e-3,
+    belres::Float64 = 1e-2,
     verbose::Bool = false,
     include_Q::Bool = false,
     init_util::Vector{Float64}=Vector{Float64}(undef, 0))    
@@ -18,6 +18,7 @@ end
 
 function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
 
+    println("switch_version_u")
     belres = solver.belres
     discount_factor = discount(mdp)
     # discount_factor = 1.0
@@ -62,7 +63,7 @@ function solve(solver::PolicyIterationSolver, mdp::MDP; kwargs...)
         # value_matrix = zeros(ns)
 
         # @TODO: actually wouldnt even need to have value_matrix as an arg
-        value_matrix = policy_evaluation(mdp, zeros(ns), policy_matrix, discount = discount_factor, belres = belres)
+        value_matrix = policy_evaluation_s(mdp, zeros(ns), policy_matrix, discount = discount_factor, belres = belres)
         
         # POLICY IMPROVEMENT
         policy_matrix, converged = policy_improvement(mdp, value_matrix, policy_matrix, qmat, discount = discount_factor)
@@ -84,38 +85,22 @@ end
 
 
 
-function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; discount::Float64 = 1.0, belres::Float64 = 1e-3)
+function policy_evaluation_s(mdp::MDP, value_matrix::Vector, policy::Vector; discount::Float64 = 1.0, belres::Float64 = 1e-3)
     state_vec = ordered_states(mdp)
-    
-    # old_value_matrix = deepcopy(value_matrix)
-    # instead of old vs new, amke a matrix of two arrays that just switch - also good for history
 
     val_len = length(value_matrix)
     value_matrices = fill(0.0, 2, val_len)
     switch = 1
     value_matrices[switch, :] = value_matrix
-    # println(value_matrices)
-    # value_matrix_ = fill(0.0, length(value_matrix))
-    
-    # delta = 0
     i = 0
     while true
         i += 1
         delta = 0
-        # println(old_value_matrix)
         
-        # println(value_matrices)
-        # println()
-        # println(switch)
-
-        
-        for state in state_vec # get value for each state
+        for (state_i, state) in enumerate(state_vec) # get value for each state
             
-            state_i = stateindex(mdp, state)
-            
-            # old_v = value_matrix[state_i]
+            # state_i = stateindex(mdp, state)
             old_v = value_matrices[switch, state_i]
-
             action_id = policy[state_i]
             action_vec = actions(mdp)
             action = action_vec[action_id]
@@ -135,30 +120,18 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; disco
                 r = reward(mdp, state, action, next_state)
                 next_state_i = stateindex(mdp, next_state)
 
-                # new_v += prob * (r + discount * old_value_matrix[next_state_i])
-                # println(new_v)
-
-                # other_switch = mod(i+1, 2) + 1
                 new_v_ += prob * (r + discount * value_matrices[switch, next_state_i])
-                # println(new_v_)
                 
             end # prob distribution loop
             
-            # value_matrix[state_i] = new_v
             value_matrix[state_i] = new_v_
-
-            # value_matrices[switch, state_i] = new_v
 
             delta = max(delta, abs(old_v - new_v_))
             
         end # state loop
 
-        # old_value_matrix = deepcopy(value_matrix)
-        
         switch = mod(i, 2) + 1
         value_matrices[switch, :] = value_matrix
-        
-
         if delta < belres
             break
         end
@@ -172,6 +145,64 @@ function policy_evaluation(mdp::MDP, value_matrix::Vector, policy::Vector; disco
     return value_matrices[switch, :]
     
 end
+
+function policy_evaluation_c(mdp::MDP, value_matrix::Vector, policy::Vector; discount::Float64 = 1.0, belres::Float64 = 1e-3)
+    state_vec = ordered_states(mdp)
+    
+    old_value_matrix = deepcopy(value_matrix)
+    # instead of old vs new, amke a matrix of two arrays that just switch - also good for history
+    
+    # delta = 0
+    i = 0
+    while true
+        i += 1
+        delta = 0
+        
+        for state in state_vec # get value for each state
+            state_i = stateindex(mdp, state)
+            
+            old_v = value_matrix[state_i]
+
+            action_id = policy[state_i]
+            action_vec = actions(mdp)
+            action = action_vec[action_id]
+
+            probability_distr = transition(mdp, state, action)
+
+            new_v = 0
+
+            # V(s) = ∑T(s,π(s),s') * (r(s,π(s),s') + γ * V_old(s'))
+            # Mausam_Kolobov - page 43
+            for (next_state, prob) in weighted_iterator(probability_distr)
+                if prob == 0
+                    continue
+                end
+
+                r = reward(mdp, state, action, next_state)
+                next_state_i = stateindex(mdp, next_state)
+
+                new_v += prob * (r + discount * old_value_matrix[next_state_i])
+                
+
+            end # prob distribution loop
+            
+            value_matrix[state_i] = new_v
+            delta = max(delta, abs(old_v - new_v))
+            
+        end # state loop
+
+        old_value_matrix = deepcopy(value_matrix)
+        if delta < belres
+            break
+        end
+
+    end
+    # println("EVALUTAION DONE at iteration: ", i)
+    
+    return value_matrix
+    
+end
+
 
 
 function policy_improvement(mdp::MDP, value_matrix::Vector, policy_matrix::Vector, q_mat::Matrix; discount::Float64 = 1.0)

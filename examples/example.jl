@@ -1,11 +1,11 @@
 using Revise
 # using ColorSchemes
-using PolicyIteration
+# using PolicyIteration
 using POMDPs
 using POMDPTools
 using POMDPModels
-using DiscreteValueIteration
-using BenchmarkTools
+# using DiscreteValueIteration
+# using BenchmarkTools
 
 include("../test/MausamKolobov.jl")
 
@@ -18,9 +18,6 @@ VIpolicy = DiscreteValueIteration.solve(VIsolver, mauskol)
 
 switch = mod(2, 2) + 1
 
-
-
-
 include("testing_domains.jl")
 # sizee, mat = generate_random_domain((7, 7), "gap")
 
@@ -28,6 +25,11 @@ sizee, mat = generate_test_domain("C:/repos/jukia_solvers/PolicyIteration.jl/exa
 mdp = CustomDomain(size = sizee, grid = mat)
 PIsolver = PolicyIterationSolver(include_Q = true)
 PIpolicy = PolicyIteration.solve(PIsolver, mdp)
+
+sss = states(mdp)
+println(sss)
+stat = sss[18]
+id = stateindex(mdp, stat)
 
 # VIsolver = ValueIterationSolver(include_Q = true)
 # VIpolicy = DiscreteValueIteration.solve(VIsolver, mdp)

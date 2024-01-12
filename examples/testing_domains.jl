@@ -123,10 +123,12 @@ end
 function POMDPs.states(mdp::CustomDomain)
     state_vec = Vector{GWCoords}()
     
+    idx = 1
     for x in 1:mdp.size[1], y in 1:mdp.size[2]
         if mdp.grid[x, y] != "#"
             pos = GWCoords(x, y)
             push!(state_vec, pos)
+            idx += 1
         end
     end    
     return state_vec
@@ -140,6 +142,7 @@ function POMDPs.stateindex(mdp::CustomDomain, s::GWCoords)
         end
     end
     return -1
+    # return s.idx
 end
 
 function POMDPs.initialstate(mdp::CustomDomain)
