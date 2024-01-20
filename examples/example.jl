@@ -1,6 +1,6 @@
 using Revise
 # using ColorSchemes
-# using PolicyIteration
+using PolicyIteration
 using POMDPs
 using POMDPTools
 using POMDPModels

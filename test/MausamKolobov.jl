@@ -2,9 +2,6 @@ using POMDPs
 using POMDPModels, POMDPLinter
 using POMDPTools
 
-# @TODO: create package??
-
-
 Base.@kwdef struct MausamKolobov <: MDP{String, String}
     # size::Integer       = 6
     discount = 0.95

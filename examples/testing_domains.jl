@@ -52,7 +52,6 @@ end
 # domain_size, grid_matrix = generate_random_domain(size, type)
 # mdp = CustomDomain(size = domain_size, grid = grid_matrix)
 # TYPES:
-
 # gap:      tunel:      empty:
 # #######   #######     ####
 # #     #   #     #     #  #
